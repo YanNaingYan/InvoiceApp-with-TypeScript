@@ -1,33 +1,36 @@
-import React, { useRef } from 'react'
+import  { useContext, useRef } from 'react'
+import { GeneralContext } from './GeneralContext';
 
-type Product = {
-    id: number;
-    name: string;
-    price: number;
-};
+ type NewSelectedProduct = {
+  id: number;
+  productId: number ;
+  name: string ;
+  price: number ;
+  quantity: number ;
+  cost: number ;
 
-type NewSelectedProduct = {
-    id: number;
-    productId: number | null;
-    name: string | undefined;
-    price: number | undefined;
-    quantity: number | undefined;
-    cost: number | undefined;
-};
-
-type SelectFormProps  = {
-    products: Product[]
-    addSelectedProducts: (newSelectedProduct: NewSelectedProduct) => void;
  
 };
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+};
 
-const SelectForm :React.FC<SelectFormProps > = ({products,addSelectedProducts}) => {
+
+
+const SelectForm = () => {
+  const context = useContext(GeneralContext)
+if(!context){
+  return null
+}
+  const{products,addSelectedProducts}=context
     const idRef = useRef<HTMLSelectElement>(null)
 
     const quantityRef =useRef<HTMLInputElement>(null)
     const handleBuy=()=>{
         const selectedProductId= idRef.current ? parseInt(idRef.current.value) : null
-        const selectedProduct= products.find((product)=>product.id===selectedProductId)
+        const selectedProduct= products.find((product:Product)=>product.id===selectedProductId)
  if(!selectedProduct || !quantityRef.current){
     return;
  }
@@ -61,9 +64,9 @@ const SelectForm :React.FC<SelectFormProps > = ({products,addSelectedProducts}) 
            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
             required
           >
-            {products.map(({id,name})=>(
-                   <option key={id} value={id}>
-{name}
+            {products.map((product:Product)=>(
+                   <option key={product.id} value={product.id}>
+{product.name}
                    </option>
             ))}
          

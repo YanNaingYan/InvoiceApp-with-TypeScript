@@ -1,9 +1,15 @@
-import React from 'react'
-import SelectedProducts from './SelectedProducts'
+import SelectedProducts from "./SelectedProducts"
 
-type Props = {}
 
-const ProductsTable = ({selectedProducts}) => {
+
+
+
+
+
+
+const ProductsTable = () => {
+
+
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
       <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
@@ -26,7 +32,7 @@ const ProductsTable = ({selectedProducts}) => {
         </tr>
       </thead>
       <tbody id="recordGroup">
-    <SelectedProducts selectedProducts={selectedProducts}/>
+    < SelectedProducts/>
       </tbody>
       <tfoot>
         <tr className="border-b">

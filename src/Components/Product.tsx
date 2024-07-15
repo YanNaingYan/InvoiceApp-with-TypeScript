@@ -1,21 +1,45 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { GeneralContext } from "./GeneralContext";
 
 
 
-const Product = ({selectedProduct,index }) => {
-    console.log(selectedProduct);
+type ProductProps = {
+  index: number;
+  selectedProduct: {
+    id: number;
+    productId: number;
+    name: string;
+    price: number;
+    quantity: number;
+    cost: number;
+  };
+};
+
+
+ const Product:React.FC <ProductProps>= ({index,selectedProduct }) => {
+  const context=useContext(GeneralContext) 
+  if(!context)
+{  return null;}
+  const { editSelectedProduct, deleteSelectedProduct } = context;
+
+  const handleDelete=()=>{
+    deleteSelectedProduct(selectedProduct.id)
+
+   }
   return (
-    <tr className="group odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+    <tr className="group odd:bg-white  even:bg-gray-50 ">
     <td className="px-6 py-4 td-counter">{index + 1}</td>
     <th
       scope="row"
-      className="record-name px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+      className="record-name px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
     >
       {selectedProduct.name}
     </th>
     <td className="px-6 py-4 text-end record-price">{selectedProduct.price}</td>
     <td className="px-6 py-4 text-end">
-      <button className="q-sub pointer-events-none group-hover:pointer-events-auto opacity-0 group-hover:opacity-100 -translate-x-6 group-hover:translate-x-0 duration-200 bg-blue-100 text-blue-600 p-1 rounded">
+      <button
+     
+       onClick={()=>{selectedProduct.quantity>0 && editSelectedProduct(selectedProduct.id, -1) }}  className="q-sub pointer-events-none group-hover:pointer-events-auto opacity-0 group-hover:opacity-100 -translate-x-6 group-hover:translate-x-0 duration-200 bg-blue-100 text-blue-600 p-1 rounded">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -32,7 +56,7 @@ const Product = ({selectedProduct,index }) => {
         </svg>
       </button>
       <span className="record-q w-5 inline-block">{selectedProduct.quantity}</span>
-      <button className="q-add pointer-events-none group-hover:pointer-events-auto opacity-0 group-hover:opacity-100 translate-x-6 group-hover:translate-x-0 duration-200 bg-blue-100 text-blue-600 p-1 rounded">
+      <button  onClick={()=>editSelectedProduct(selectedProduct.id,1)} className="q-add pointer-events-none group-hover:pointer-events-auto opacity-0 group-hover:opacity-100 translate-x-6 group-hover:translate-x-0 duration-200 bg-blue-100 text-blue-600 p-1 rounded">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -52,7 +76,7 @@ const Product = ({selectedProduct,index }) => {
     <td className="px-6 py-4 text-end relative">
       <span className="record-cost">{selectedProduct.cost.toFixed(2)}</span>
       <button
-      
+      onClick={handleDelete}
         className="record-del group-hover:opacity-100 group-hover:pointer-events-auto duration-200 group-hover:left-3/4 absolute pointer-events-none opacity-0 left-full top-3 translate-x-2 active:scale-75 bg-blue-100 p-2 rounded-lg"
       >
         <svg
