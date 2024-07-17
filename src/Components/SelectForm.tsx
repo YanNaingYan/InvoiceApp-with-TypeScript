@@ -29,24 +29,28 @@ if(!context){
 
     const quantityRef =useRef<HTMLInputElement>(null)
     const handleBuy=()=>{
-        const selectedProductId= idRef.current ? parseInt(idRef.current.value) : null
+      if(quantityRef.current?.value != "") {
+         const selectedProductId= idRef.current ? parseInt(idRef.current.value) : null
         const selectedProduct= products.find((product:Product)=>product.id===selectedProductId)
- if(!selectedProduct || !quantityRef.current){
-    return;
- }
-        const cost = selectedProduct?.price * quantityRef.current?.valueAsNumber
-        const newSelectedProduct:NewSelectedProduct={
-            id:Date.now(),
-            productId:selectedProduct?.id,
-            name:selectedProduct?.name,
-            price:selectedProduct?.price,
-            quantity:quantityRef.current?.valueAsNumber,
-            cost
-
-        }
-        addSelectedProducts(newSelectedProduct)
-   
-    }
+        if(!selectedProduct || !quantityRef.current){
+          return;
+       }
+              const cost = selectedProduct?.price * quantityRef.current?.valueAsNumber
+              const newSelectedProduct:NewSelectedProduct={
+                  id:Date.now(),
+                  productId:selectedProduct?.id,
+                  name:selectedProduct?.name,
+                  price:selectedProduct?.price,
+                  quantity:quantityRef.current?.valueAsNumber,
+                  cost
+      
+              }
+              addSelectedProducts(newSelectedProduct)
+         
+          }
+      }
+        
+ 
   return (
     <section className="mb-10 block print:hidden">
     <div id="recordForm">

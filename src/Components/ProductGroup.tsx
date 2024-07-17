@@ -1,10 +1,20 @@
-import React from 'react'
+import { useContext } from "react"
+import { GeneralContext } from "./GeneralContext"
+import ProductInDrawer from "./ProductInDrawer"
 
-type Props = {}
 
-const ProductGroup = (props: Props) => {
+const ProductGroup = () => {
+    const context = useContext(GeneralContext)
+    if(!context){
+        return null
+    }
+    const {products}= context
   return (
-    <div>ProductGroup</div>
+    <div id="productGroup" className="p-3">
+      {products.map((product) => (
+        <ProductInDrawer key={product.id} product={product} />
+      ))}
+    </div>
   )
 }
 

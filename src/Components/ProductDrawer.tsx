@@ -1,12 +1,18 @@
 import  { useContext } from 'react'
 import { GeneralContext } from './GeneralContext';
+import ProductGroup from './ProductGroup';
+import NewProductForm from "./NewProductForm";
+
+
 
 
 
 const ProductDrawer = () => {
     const context=useContext(GeneralContext) 
     if(!context)
-  {  return null;}
+  {  
+    return null;
+  }
     const { openDrawer,toggleDrawer } = context;
 
  
@@ -43,7 +49,8 @@ const ProductDrawer = () => {
         </svg>
       </button>
     </div>
- <ProductDrawer/>
+ <ProductGroup/>
+ <NewProductForm/>
   </div>
   )
 }
