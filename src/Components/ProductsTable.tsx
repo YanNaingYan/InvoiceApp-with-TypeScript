@@ -1,4 +1,6 @@
+import { useContext } from "react"
 import SelectedProducts from "./SelectedProducts"
+import { GeneralContext } from "./GeneralContext"
 
 
 
@@ -8,7 +10,11 @@ import SelectedProducts from "./SelectedProducts"
 
 
 const ProductsTable = () => {
-
+  const context=useContext(GeneralContext)
+  if(!context){
+    return null
+  }
+  const{selectedProducts}=context
 
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
@@ -40,7 +46,7 @@ const ProductsTable = () => {
             Total
           </td>
           <td className="px-6 py-4 text-end" id="recordTotal">
-           
+           {selectedProducts.reduce((pv:number,cv)=>pv + cv.cost,0).toFixed(2)}
           </td>
         </tr>
       </tfoot>

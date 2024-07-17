@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Title from './Components/Title'
 import SelectForm from './Components/SelectForm'
 import ProductsTable from './Components/ProductsTable'
+import Footer from './Components/Footer'
+import ProductDrawer from './Components/ProductDrawer'
+
 
 const App : React.FC= () => {
   
@@ -10,6 +13,8 @@ const App : React.FC= () => {
       <Title/>
       <SelectForm />
       <ProductsTable />
+      <Footer/>
+      <ProductDrawer/>
     </div>
   )
 }

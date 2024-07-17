@@ -12,6 +12,9 @@ type GeneralContextType={
     addSelectedProducts: (newSelectedProducts: NewSelectedProducts) => void;
     deleteSelectedProduct: (id: number) => void;
     editSelectedProduct: (id: number, addQuantity: number) => void;
+    openDrawer:boolean
+    setOpenDrawer:(  openDrawer:boolean)=>void
+    toggleDrawer:()=>void
 }
 type Product = {
     id: number;
@@ -28,6 +31,9 @@ type NewSelectedProducts = {
   };
 
 type AddSelectedProducts=(newSelectedProducts:NewSelectedProducts)=>void
+
+
+
   
 export const GeneralContextProvider:React.FC<GeneralContextProps > = ({children}) => {
     const [products,setProducts] = useState([
@@ -53,9 +59,15 @@ return {...el,quantity:newQuantity,cost:newCost}
 }
 ))
   }
+  const [openDrawer,setOpenDrawer]=useState(false)
+
+  const toggleDrawer=()=>{
+    setOpenDrawer(!openDrawer)
+
+        }
   return (
     <GeneralContext.Provider value={
-        {products,addSelectedProducts,selectedProducts,deleteSelectedProduct,editSelectedProduct}
+        {products,addSelectedProducts,selectedProducts,deleteSelectedProduct,editSelectedProduct,openDrawer,setOpenDrawer,toggleDrawer}
     }>{children}</GeneralContext.Provider>
   )
 }
